@@ -9,20 +9,26 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        ScrollView {
-            VStack {
-                ForEach(0..<100) { i in
-                    Rectangle()
-                        .fill(.blue)
-                        .frame(height: 100)
-                        .scrollTransition { content, phase in
-                            content
-                                .blur(radius: phase == .identity ? 0 : 50)
-                                .hueRotation(.degrees(90 * phase.value))
-                        }
-                }
+        NavigationSplitView {
+            Form {
+                Text("UI goes here")
             }
-            .padding()
+        } detail: {
+            ScrollView {
+                VStack {
+                    ForEach(0..<100) { i in
+                        Rectangle()
+                            .fill(.blue)
+                            .frame(height: 100)
+                            .scrollTransition { content, phase in
+                                content
+                                    .blur(radius: phase == .identity ? 0 : 50)
+                                    .hueRotation(.degrees(90 * phase.value))
+                            }
+                    }
+                }
+                .padding()
+            }
         }
     }
 }
