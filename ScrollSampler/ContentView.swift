@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var dataModel = DataModel()
+    
     var body: some View {
         NavigationSplitView {
             Form {
-                Text("UI goes here")
+                //the sliders in ios like not having titles, hence the use of the below.
+                LabeledContent("Opacity") {
+                    Slider(value: $dataModel.opacity, in: 0...1)
+                }
             }
+            .toolbar(.hidden)
         } detail: {
             ScrollView {
                 VStack {
@@ -22,13 +28,15 @@ struct ContentView: View {
                             .frame(height: 100)
                             .scrollTransition { content, phase in
                                 content
-                                    .blur(radius: phase == .identity ? 0 : 50)
-                                    .hueRotation(.degrees(90 * phase.value))
+                                    
+                                    .opacity(dataModel.opacity)
                             }
                     }
                 }
                 .padding()
             }
+            .toolbar(.hidden)
+            .ignoresSafeArea()
         }
     }
 }
