@@ -13,10 +13,17 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
             Form {
-                //the sliders in ios like not having titles, hence the use of the below.
-                LabeledContent("Opacity") {
-                    Slider(value: $dataModel.opacity, in: 0...1)
+                ForEach(dataModel.variants) { variant in
+                    //you'll hoit the need for the below a lot in swiftui. 'Take the curretn object, wrap it inside the Bindable struct that knows how to read and write observable data and use that to bind to below.
+                    @Bindable var variant = variant
+                    Section(variant.id) {
+                        LabeledContent("Opacity") {
+                            Slider(value: $variant.opacity, in: 0...1)
+                        }
+                    }
+                    
                 }
+                
             }
             .toolbar(.hidden)
         } detail: {
@@ -28,8 +35,8 @@ struct ContentView: View {
                             .frame(height: 100)
                             .scrollTransition { content, phase in
                                 content
-                                    
-                                    .opacity(dataModel.opacity)
+                                    //clever method to call using keypaths
+                                    .opacity(dataModel.get(\.opacity, for: phase))
                             }
                     }
                 }
