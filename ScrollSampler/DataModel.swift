@@ -30,7 +30,7 @@ class DataModel {
 //    }
     
     // the new agnostic method that deals with all TransitionVariant Keypaths. Keypaths are one of his favourite features of Swift, reall great way of dealing with uninvoked members: 'Don't give me the actual value inside the String, refer to that property itself, by naame and get the property that way.'
-    func get(_ keypath: KeyPath<TransitionVariant, Double>, for phase: ScrollTransitionPhase) -> Double {
+    func callAsFunction(_ keypath: KeyPath<TransitionVariant, Double>, for phase: ScrollTransitionPhase) -> Double {
         switch phase {
         case .topLeading:
             //if they've asked for opacity, read that, if they've asked for blur, read that. If you go look at the call site in content view you'll see how we ask for each visual effect.

@@ -36,7 +36,7 @@ struct ContentView: View {
                             .scrollTransition { content, phase in
                                 content
                                     //clever method to call using keypaths
-                                    .opacity(dataModel.get(\.opacity, for: phase))
+                                    .opacity(dataModel(\.opacity, for: phase))
                             }
                     }
                 }
